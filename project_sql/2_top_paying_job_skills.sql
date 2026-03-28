@@ -14,5 +14,16 @@ WITH top_paying_jobs AS (
         And salary_year_avg IS NOT NULL
     ORDER BY 
         salary_year_avg DESC
-    LIMIT 10;
+    LIMIT 10
 )
+
+SELECT
+    top_paying_jobs.*,
+    sd.skills
+FROM top_paying_jobs
+INNER JOIN skills_job_dim AS sjd
+    ON top_paying_jobs.job_id = sjd.job_id
+    INNER JOIN skills_dim AS sd
+        ON sjd.skill_id = sd.skill_id
+ORDER BY
+    salary_year_avg DESC
